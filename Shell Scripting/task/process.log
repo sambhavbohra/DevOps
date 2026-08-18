@@ -1,0 +1,6 @@
+Process is   PID TTY           TIME CMD
+ 9989 ttys001    0:00.06 /bin/zsh -il
+23495 ttys002    0:00.02 /bin/zsh -i
+23649 ttys003    0:00.03 /bin/zsh -il
+26121 ttys004    0:00.18 /bin/zsh -il
+30562 ttys004    0:00.01 sh ./task.sh
