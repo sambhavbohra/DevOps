@@ -1,10 +1,10 @@
-# Shell Scripting - Variables and Input
+# Shell Scripting Examples
 
-This folder contains examples of variables and user input in Bash.
+This folder contains Bash scripts for variables, input, conditions, loops, and task-based examples.
 
-## 1. Variable example
+## 1. Variable Example
 
-File: variable.sh
+File: `variable.sh`
 
 ```bash
 name="Sambhav"
@@ -28,9 +28,9 @@ My name is Sambhav and my rollno is 10090 and my comment is Goat
 
 ---
 
-## 2. Input example
+## 2. Input Example
 
-File: input.sh
+File: `input.sh`
 
 ```bash
 read -p "Enter your name: " name
@@ -40,7 +40,7 @@ read -p "Enter your comment: " comment
 echo "My name is $name and my rollno is $rollno and my comment is $comment"
 ```
 
-### Example interactive output
+### Example Output
 ```bash
 Enter your name: Sam
 Enter your rollno: 101
@@ -53,9 +53,9 @@ My name is Sam and my rollno is 101 and my comment is Good
 
 ---
 
-## 3. Task example
+## 3. Task Example
 
-File: task.sh
+File: `task.sh`
 
 ```bash
 mkdir task && cd task
@@ -79,7 +79,7 @@ echo "My name is $name and my rollno is $rollno and my comment is $comment" > pe
 cat personal.log
 ```
 
-### Example output
+### Example Output
 ```bash
 Todays date is Tue Aug 18 2026 12:00:00 IST
 Hostname is MacBook-Pro
@@ -91,4 +91,105 @@ My name is Sam and my rollno is 101 and my comment is Good
 ### Screenshot
 ![Task Output](screenshots/task%20output.png)
 
-Folder: screenshots/
+---
+
+## 4. Condition Example
+
+File: `condition.sh`
+
+```bash
+read -p "Enter the age: " age
+
+if [ $age -gt 18 ]
+then
+    echo "You are eligible to vote"
+else
+    echo "You are not eligible to vote"
+fi
+```
+
+### Screenshot
+![Condition Output](screenshots/condition_output.png)
+
+---
+
+## 5. For Loop Example
+
+File: `loop.sh`
+
+```bash
+for i in {1..5}
+do
+  echo "This is iteration number $i"
+done
+```
+
+### Screenshot
+![Loop Output](screenshots/loop.png)
+
+---
+
+## 6. While Loop Example
+
+File: `while_loop.sh`
+
+```bash
+while true; do
+    read -p "Enter a number (or 'q' to quit): " input
+
+    if [[ $input == "q" ]]; then
+        echo "Exiting the loop."
+        break
+    elif ! [[ $input =~ ^[0-9]+$ ]]; then
+        echo "Invalid input. Please enter a valid number."
+        continue
+    fi
+
+    echo "You entered: $input"
+done
+```
+
+### Screenshot
+![While Loop Output](screenshots/while_loop.png)
+
+---
+
+## 7. While Loop Counter Example
+
+File: `while_loop1.sh`
+
+```bash
+count=0
+while [ $count -lt 5 ]
+do
+  echo "This is iteration number $count"
+  ((count++))
+done
+```
+
+### Screenshot
+![While Loop Counter Output](screenshots/while_loop1.png)
+
+---
+
+## 8. Data Example
+
+File: `data.sh`
+
+```bash
+mkdir data3
+cd data3
+touch app.log
+echo "Hello World" > app.log
+cat app.log
+echo "heelo world overwritten" > app.log
+cat app.log
+```
+
+### Status
+No screenshot has been added for this example yet.
+
+---
+
+## Screenshot Folder
+All screenshots are stored in the `screenshots/` folder.
