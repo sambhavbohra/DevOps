@@ -133,6 +133,11 @@ done
 
 File: `while_loop.sh`
 
+This loop keeps asking for input until the user enters `q`.
+It checks whether the value is a valid number using a regular expression pattern.
+If the input is `q`, the loop exits.
+If the input is not a number, it shows an invalid input message and continues.
+
 ```bash
 while true; do
     read -p "Enter a number (or 'q' to quit): " input
@@ -148,6 +153,11 @@ while true; do
     echo "You entered: $input"
 done
 ```
+
+### Behavior
+- `q` → stops the loop
+- valid number → prints the number
+- invalid text → prints a validation message and asks again
 
 ### Screenshot
 ![While Loop Output](screenshots/while_loop.png)
