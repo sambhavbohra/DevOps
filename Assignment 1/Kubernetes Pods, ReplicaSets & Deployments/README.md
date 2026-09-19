@@ -4,6 +4,8 @@
 
 Minikube (Docker driver) on macOS, Kubernetes v1.37.0. Ran everything in its own `session10` namespace instead of `default`, because `default` already had a `web` Pod from an earlier assignment with label `app=web` — the same label this ReplicaSet uses. Applying in `default` would've silently adopted that Pod instead of creating fresh ones.
 
+Folders got renamed after the fact for clarity (`k8s-core-objects/` → `manifests/`, `supporting/` → `extra/`, `deamonset.yml` → `daemonset.yml`), so the terminal screenshots below still show the old paths — the commands are quoted here with the current ones.
+
 ```
 minikube version: v1.39.0
 kubectl Client Version: v1.34.1
