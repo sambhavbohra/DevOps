@@ -1,0 +1,9 @@
+apiVersion: v2
+name: devops-platform
+description: Comprehensive Enterprise DevOps Platform Helm Chart
+type: application
+version: 1.0.0
+appVersion: "2.5.0"
+maintainers:
+  - name: Sambhav D Bohra
+    email: 24bcs10090@scaler.com

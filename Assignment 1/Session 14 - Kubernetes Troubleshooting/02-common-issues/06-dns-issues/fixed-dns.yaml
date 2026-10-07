@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dns-test-fixed
+spec:
+  containers:
+  - name: test-runner
+    image: busybox:1.36
+    # Querying correct service DNS name in the default namespace
+    command: ["/bin/sh", "-c", "nslookup kubernetes.default.svc.cluster.local && echo 'DNS resolution succeeded' && sleep 3600"]

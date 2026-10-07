@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: sambhavbohra/order-processing-platform:2.5.0
+    container_name: order-app
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - ENVIRONMENT=production
+      - APP_NAME=order-processing-platform
+    volumes:
+      - app-storage:/var/log/app
+    restart: unless-stopped
+
+volumes:
+  app-storage:

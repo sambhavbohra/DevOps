@@ -1,0 +1,84 @@
+# ==============================================================================
+# Git Ignore Configuration - DevOps Course & Assignment Repository
+# Student: Sambhav D Bohra (24bcs10090)
+# ==============================================================================
+
+# macOS Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Python Runtimes & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+dist/
+build/
+*.egg-info/
+
+# Node.js & Javascript Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+package-lock.json.bak
+
+# Terraform Local State & Binary Plugins
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars.json
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Local Environment & Secret Files
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.pub.secret
+secrets.yaml
+
+# Kubernetes & Helm Temporary Files
+*.kubeconfig
+*.tgz
+*.lock
+
+# IDE & Editor Configurations
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Log Files
+*.log
+logs/

@@ -1,0 +1,59 @@
+# Default values for ecommerce-web
+replicaCount: 2
+
+image:
+  repository: nginx
+  tag: "1.25.0-alpine"
+  pullPolicy: IfNotPresent
+
+environment: "staging"
+appName: "ecommerce-web"
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+probes:
+  liveness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 10
+    periodSeconds: 10
+  readiness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 5
+    periodSeconds: 5
+
+persistence:
+  enabled: true
+  size: 1Gi
+  accessMode: ReadWriteOnce
+  mountPath: /usr/share/nginx/html/assets
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 50
+
+ingress:
+  enabled: true
+  className: "nginx"
+  host: "ecommerce.local"
+
+config:
+  API_URL: "https://api.ecommerce.internal/v1"
+  ENABLE_FEATURE_FLAGS: "true"
+
+secret:
+  DB_PASSWORD: "SuperSecretSecureDatabaseKey2026"

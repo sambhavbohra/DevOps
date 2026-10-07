@@ -1,0 +1,52 @@
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "devops-platform.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+*/}}
+{{- define "devops-platform.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "devops-platform.labels" -}}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+app.kubernetes.io/name: {{ include "devops-platform.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+environment: {{ .Values.environment }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "devops-platform.fullname" . }}-config
+  labels:
+    {{- include "devops-platform.labels" . | nindent 4 }}
+data:
+  APP_NAME: {{ .Values.config.APP_NAME | quote }}
+  APP_VERSION: {{ .Values.config.APP_VERSION | quote }}
+  ENVIRONMENT: {{ .Values.environment | quote }}
+  PORT: {{ .Values.config.PORT | quote }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "devops-platform.fullname" . }}-secret
+  labels:
+    {{- include "devops-platform.labels" . | nindent 4 }}
+type: Opaque
+stringData:
+  DATABASE_URL: {{ .Values.secret.DATABASE_URL | quote }}

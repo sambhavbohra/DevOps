@@ -1,0 +1,17 @@
+Thank you for installing {{ .Chart.Name }} version {{ .Chart.Version }}!
+
+Your release is named {{ .Release.Name }} and is deployed to namespace {{ .Release.Namespace }}.
+
+1. Get the application status:
+   kubectl get pods -l "app.kubernetes.io/instance={{ .Release.Name }}" -n {{ .Release.Namespace }}
+
+2. Access the application:
+{{- if .Values.ingress.enabled }}
+   Add the following line to your /etc/hosts file:
+   127.0.0.1 {{ .Values.ingress.host }}
+   Then visit: http://{{ .Values.ingress.host }}
+{{- else }}
+   export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
+   kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:{{ .Values.service.port }}
+   Then visit: http://127.0.0.1:8080
+{{- end }}

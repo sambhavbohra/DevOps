@@ -1,0 +1,29 @@
+rules:
+  - id: avoid-raw-sql-concatenation
+    pattern: |
+      $DB.execute(f"... {$VAR} ...")
+    message: "Potential SQL Injection detected. Use parameterized queries instead."
+    severity: ERROR
+    languages: [python]
+    metadata:
+      category: security
+      cwe: "CWE-89"
+
+  - id: avoid-shell-true-subprocess
+    pattern: |
+      subprocess.run(..., shell=True, ...)
+    message: "Command Injection risk: shell=True should not be used with dynamic variables."
+    severity: ERROR
+    languages: [python]
+    metadata:
+      category: security
+      cwe: "CWE-78"
+
+  - id: avoid-hardcoded-credentials
+    pattern: |
+      $VAR = "=secret_token_12345="
+    message: "Hardcoded secret key detected. Retrieve secrets via environment variables."
+    severity: WARNING
+    languages: [python]
+    metadata:
+      category: security

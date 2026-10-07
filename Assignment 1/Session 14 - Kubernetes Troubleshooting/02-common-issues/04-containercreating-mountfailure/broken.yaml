@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: containercreating-demo-broken
+  labels:
+    app: mount-demo
+spec:
+  containers:
+  - name: web
+    image: nginx:alpine
+    volumeMounts:
+    - name: missing-config-vol
+      mountPath: /etc/config
+  volumes:
+  - name: missing-config-vol
+    configMap:
+      # Missing ConfigMap that does not exist in cluster
+      name: app-nonexistent-config

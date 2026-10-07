@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payment-app-config
+data:
+  SERVICE_PORT: "8080"
+  DATABASE_NAME: "payments_db"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: payment-app-broken
+spec:
+  containers:
+  - name: payment-api
+    image: busybox:1.36
+    command: ["/bin/sh", "-c", "echo Port is $$PORT && sleep 3600"]
+    env:
+    - name: PORT
+      valueFrom:
+        configMapKeyRef:
+          name: payment-app-config
+          # Key does not exist in ConfigMap (typo in key name)
+          key: WRONG_PORT_KEY

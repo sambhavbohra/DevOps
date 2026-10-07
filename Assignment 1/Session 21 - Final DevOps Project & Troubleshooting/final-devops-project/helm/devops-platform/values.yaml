@@ -1,0 +1,45 @@
+# Base values
+replicaCount: 3
+
+image:
+  repository: nginx
+  tag: "1.25.0-alpine"
+  pullPolicy: IfNotPresent
+
+environment: "production"
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+persistence:
+  enabled: true
+  size: 1Gi
+  mountPath: /var/log/app
+
+hpa:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPU: 60
+
+ingress:
+  enabled: true
+  className: "nginx"
+  host: "orders.scaler.internal"
+
+config:
+  APP_NAME: "order-processing-platform"
+  APP_VERSION: "2.5.0"
+  PORT: "8080"
+
+secret:
+  DATABASE_URL: "postgresql://orderuser:SuperSecureDbPass2026!@postgres-db:5432/orderdb"

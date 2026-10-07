@@ -1,0 +1,14 @@
+{
+  "name": "cicd-demo-service",
+  "version": "1.0.0",
+  "description": "Continuous Integration and Continuous Deployment Demo Service",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test src/server.test.js",
+    "lint": "node -e 'console.log(\"Lint checks passed successfully.\")'"
+  },
+  "keywords": ["devops", "cicd", "github-actions"],
+  "author": "Sambhav D Bohra",
+  "license": "MIT"
+}

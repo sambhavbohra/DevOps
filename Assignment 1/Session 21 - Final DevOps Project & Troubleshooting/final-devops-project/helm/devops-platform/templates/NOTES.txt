@@ -1,0 +1,10 @@
+Thank you for installing {{ .Chart.Name }} (Version {{ .Chart.Version }})!
+
+Deployed by: Sambhav D Bohra (24bcs10090)
+Namespace: {{ .Release.Namespace }}
+
+Check Pods:
+  kubectl get pods -l "app.kubernetes.io/instance={{ .Release.Name }}" -n {{ .Release.Namespace }}
+
+Check Service and Ingress:
+  kubectl get svc,ingress -l "app.kubernetes.io/instance={{ .Release.Name }}" -n {{ .Release.Namespace }}

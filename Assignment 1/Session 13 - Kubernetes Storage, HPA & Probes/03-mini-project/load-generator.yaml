@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-load-generator
+  labels:
+    app: order-load-generator
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: order-load-generator
+  template:
+    metadata:
+      labels:
+        app: order-load-generator
+    spec:
+      containers:
+      - name: siege-runner
+        image: busybox:1.36
+        command: ["/bin/sh", "-c"]
+        args:
+          - while true; do
+              wget -q -O- http://order-service;
+            done

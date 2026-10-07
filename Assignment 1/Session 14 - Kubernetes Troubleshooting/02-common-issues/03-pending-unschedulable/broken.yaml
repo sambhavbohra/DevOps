@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pending-demo-broken
+  labels:
+    app: pending-demo
+spec:
+  containers:
+  - name: heavy-app
+    image: nginx:alpine
+    resources:
+      requests:
+        # Demanding 128 Cores and 500Gi memory which exceeds single node capacity
+        cpu: "128"
+        memory: "500Gi"

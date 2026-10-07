@@ -1,0 +1,22 @@
+# Dev environment values override
+replicaCount: 1
+
+environment: "development"
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+persistence:
+  enabled: false
+
+hpa:
+  enabled: false
+
+ingress:
+  enabled: false
+  host: "dev.ecommerce.local"

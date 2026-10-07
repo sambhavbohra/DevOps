@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-demo-pod
+  labels:
+    app: hostpath-storage-demo
+spec:
+  containers:
+  - name: node-logger
+    image: busybox:1.36
+    command: ["/bin/sh", "-c"]
+    args:
+      - while true; do
+          echo "[$(date)] Host node disk health check executed by pod" >> /host-logs/node-audit.log;
+          sleep 10;
+        done
+    volumeMounts:
+    - name: host-log-volume
+      mountPath: /host-logs
+  volumes:
+  - name: host-log-volume
+    hostPath:
+      path: /tmp/k8s-node-data
+      type: DirectoryOrCreate

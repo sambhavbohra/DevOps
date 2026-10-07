@@ -1,0 +1,30 @@
+# Production environment values override
+replicaCount: 4
+
+environment: "production"
+
+image:
+  tag: "1.25.0-alpine"
+  pullPolicy: Always
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+
+persistence:
+  enabled: true
+  size: 1Gi
+
+hpa:
+  enabled: true
+  minReplicas: 4
+  maxReplicas: 12
+  targetCPUUtilizationPercentage: 60
+
+ingress:
+  enabled: true
+  host: "ecommerce.production.domain"

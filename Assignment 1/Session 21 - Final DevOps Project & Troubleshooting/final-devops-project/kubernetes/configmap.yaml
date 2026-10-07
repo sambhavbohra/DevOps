@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-platform-config
+  labels:
+    app: order-platform
+data:
+  APP_NAME: "order-processing-platform"
+  APP_VERSION: "2.5.0"
+  ENVIRONMENT: "production"
+  PORT: "8080"
+  STORAGE_LOG_PATH: "/var/log/app/transactions.log"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: order-platform-secret
+  labels:
+    app: order-platform
+type: Opaque
+stringData:
+  DATABASE_URL: "postgresql://orderuser:SuperSecureDbPass2026!@postgres-db:5432/orderdb"
+  API_SECRET_KEY: "prod-secret-token-key-24bcs10090"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: order-platform-pvc
+  labels:
+    app: order-platform
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

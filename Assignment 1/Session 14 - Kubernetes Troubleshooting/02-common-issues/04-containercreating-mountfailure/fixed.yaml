@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-active-config
+data:
+  APP_ENV: "production"
+  APP_PORT: "80"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: containercreating-demo-fixed
+  labels:
+    app: mount-demo
+spec:
+  containers:
+  - name: web
+    image: nginx:alpine
+    volumeMounts:
+    - name: valid-config-vol
+      mountPath: /etc/config
+  volumes:
+  - name: valid-config-vol
+    configMap:
+      name: app-active-config

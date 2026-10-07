@@ -1,0 +1,9 @@
+apiVersion: v2
+name: ecommerce-web
+description: Enterprise E-Commerce Web Application Helm Chart
+type: application
+version: 1.0.0
+appVersion: "2.4.0"
+maintainers:
+  - name: Sambhav D Bohra
+    email: 24bcs10090@scaler.com

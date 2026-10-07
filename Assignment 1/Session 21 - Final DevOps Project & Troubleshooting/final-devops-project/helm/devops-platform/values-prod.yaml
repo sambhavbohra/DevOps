@@ -1,0 +1,21 @@
+# Production overrides
+replicaCount: 5
+environment: "production"
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+persistence:
+  enabled: true
+  size: 1Gi
+hpa:
+  enabled: true
+  minReplicas: 5
+  maxReplicas: 15
+  targetCPU: 60
+ingress:
+  enabled: true
+  host: "orders.scaler.com"

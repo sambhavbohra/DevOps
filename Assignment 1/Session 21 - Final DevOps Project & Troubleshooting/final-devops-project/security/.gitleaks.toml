@@ -1,0 +1,38 @@
+title = "Enterprise Secret Scanning Rules"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "jwt-secret-token"
+description = "Hardcoded JWT Token or API Key"
+regex = '''(?i)(?:jwt|secret|token|api_key|password)\s*[:=]\s*['"][a-zA-Z0-9_\-\.]{16,}['"]'''
+entropy = 3.5
+
+[allowlist]
+paths = [
+  '''test_.*\.py''',
+  '''package\.json'''
+]
+---
+rules:
+  - id: avoid-unparameterized-queries
+    pattern: |
+      $CONN.execute("... " + $VAR + " ...")
+    message: "SQL Injection risk detected. Use parameterized SQL bindings."
+    severity: ERROR
+    languages: [python]
+    metadata:
+      category: security
+---
+scan:
+  security-checks:
+    - vuln
+    - config
+    - secret
+severity:
+  - CRITICAL
+  - HIGH
+exit-code: 1
+ignore-unfixed: true
+format: table

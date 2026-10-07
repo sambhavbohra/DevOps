@@ -1,0 +1,19 @@
+# Gitleaks Configuration for Automated Secret Detection
+title = "Gitleaks Rule Configuration"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+description = "Generic High-Entropy API Key Detection"
+regex = '''(?i)(?:key|api|token|secret|password|auth)[_-]?[a-z0-9]*\s*[:=]\s*['"][a-zA-Z0-9_\-]{20,}['"]'''
+entropy = 3.5
+keywords = ["key", "api", "token", "secret", "password"]
+
+[allowlist]
+description = "Permitted example secrets in tests"
+paths = [
+  '''test_.*\.py''',
+  '''package\.json'''
+]

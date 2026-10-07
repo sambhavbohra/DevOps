@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-app
+  labels:
+    app: frontend-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-app
+  template:
+    metadata:
+      labels:
+        app: frontend-app
+    spec:
+      containers:
+      - name: web
+        # Bug 1: Non-existent image tag -> ImagePullBackOff
+        image: nginx:1.99.9-alpine-broken-tag
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-service
+  labels:
+    app: api-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-service
+  template:
+    metadata:
+      labels:
+        app: api-service
+    spec:
+      containers:
+      - name: api
+        image: registry.k8s.io/hpa-example
+        ports:
+        - containerPort: 80
+        # Bug 2: Readiness probe queries port 9090 instead of 80 -> Unhealthy / 0/1 READY
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 9090
+          initialDelaySeconds: 2
+          periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  # Bug 3: Mismatched selector -> 0 endpoints
+  selector:
+    app: wrong-api-tag
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: db-cache-pod
+  labels:
+    app: db-cache
+spec:
+  containers:
+  - name: redis
+    image: redis:7-alpine
+    volumeMounts:
+    - name: secret-data
+      mountPath: /etc/secrets
+  volumes:
+  - name: secret-data
+    secret:
+      # Bug 4: Secret does not exist -> ContainerCreating / FailedMount
+      secretName: missing-db-secret

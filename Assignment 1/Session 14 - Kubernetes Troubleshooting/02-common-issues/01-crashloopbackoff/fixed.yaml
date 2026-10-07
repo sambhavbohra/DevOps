@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: crashloop-demo-fixed
+  labels:
+    app: crashloop-demo
+spec:
+  containers:
+  - name: stable-app
+    image: busybox:1.36
+    # Properly handling missing files and keeping process running stably
+    command: ["/bin/sh", "-c"]
+    args:
+      - while true; do
+          echo "[$(date)] Application is healthy and executing successfully";
+          sleep 10;
+        done
