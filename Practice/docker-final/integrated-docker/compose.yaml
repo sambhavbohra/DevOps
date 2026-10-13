@@ -1,0 +1,16 @@
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8083:80"
+
+  cache:
+    image: redis:alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    environment:
+      APP_ENV: development
+
+volumes:
+  redis-data:
